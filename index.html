@@ -1,29 +1,90 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Certificate Verification</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            text-align: center;
+        }
+        .certificate {
+            border: 2px solid #333;
+            padding: 20px;
+            margin: 20px 0;
+            background: #f9f9f9;
+        }
+        .valid { color: green; }
+        .invalid { color: red; }
+    </style>
 </head>
 <body>
     <h1>Certificate Verification</h1>
-    <div id="certificate-result"></div>
+    <div id="certificate-result">
+        <p>Enter a certificate ID in the URL like: <code>?id=12345</code></p>
+    </div>
 
     <script>
-        // Add your certificate verification logic here
+        // Certificate database - ADD YOUR REAL CERTIFICATE DATA HERE
         const certificates = {
-            // Your certificate data goes here
+            "12345": {
+                name: "John Doe",
+                course: "Web Development Fundamentals",
+                date: "2024-01-15",
+                issuedBy: "Your Organization"
+            },
+            "67890": {
+                name: "Jane Smith", 
+                course: "Data Science Basics",
+                date: "2024-01-20",
+                issuedBy: "Your Organization"
+            },
+            "ABC123": {
+                name: "Mike Johnson",
+                course: "JavaScript Mastery",
+                date: "2024-02-01",
+                issuedBy: "Your Organization"
+            }
         };
-        
-        // URL parameter reading logic
+
+        // Get certificate ID from URL
         const urlParams = new URLSearchParams(window.location.search);
         const certId = urlParams.get('id');
+
+        // Display certificate information
+        const resultDiv = document.getElementById('certificate-result');
         
-        // Display logic
-        if (certId && certificates[certId]) {
-            document.getElementById('certificate-result').innerHTML = 
-                `Valid Certificate: ${certificates[certId].name}`;
+        if (certId) {
+            if (certificates[certId]) {
+                const cert = certificates[certId];
+                resultDiv.innerHTML = `
+                    <div class="certificate">
+                        <h2 class="valid">✅ Valid Certificate Found</h2>
+                        <p><strong>Certificate ID:</strong> ${certId}</p>
+                        <p><strong>Name:</strong> ${cert.name}</p>
+                        <p><strong>Course:</strong> ${cert.course}</p>
+                        <p><strong>Date Issued:</strong> ${cert.date}</p>
+                        <p><strong>Issued By:</strong> ${cert.issuedBy}</p>
+                    </div>
+                `;
+            } else {
+                resultDiv.innerHTML = `
+                    <div class="invalid">
+                        <h2>❌ Certificate Not Found</h2>
+                        <p>No certificate found with ID: <strong>${certId}</strong></p>
+                        <p>Please check the certificate ID and try again.</p>
+                    </div>
+                `;
+            }
         } else {
-            document.getElementById('certificate-result').innerHTML = 
-                'Certificate not found';
+            resultDiv.innerHTML = `
+                <p>To verify a certificate, add <code>?id=YOUR_CERTIFICATE_ID</code> to the URL</p>
+                <p>Example: <a href="?id=12345">?id=12345</a></p>
+            `;
         }
     </script>
 </body>
