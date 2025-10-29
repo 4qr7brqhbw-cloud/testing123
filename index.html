@@ -1,36 +1,30 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="UTF-8">
-  <title>Certificate Verification</title>
-  <style>
-    body { font-family: Arial, sans-serif; text-align: center; margin-top: 50px; }
-    .found { color: green; }
-    .not-found { color: red; }
-  </style>
+    <title>Certificate Verification</title>
 </head>
 <body>
-  <h1>Certificate Verification</h1>
-  <div id="result"></div>
+    <h1>Certificate Verification</h1>
+    <div id="certificate-result"></div>
 
-  <script>
-    const certificates = {
-      "CERT001": { name: "Zwe Htet Shine", course: "Technology Management", year: 2025 },
-    };
-
-    const params = new URLSearchParams(window.location.search);
-    const id = params.get("id");
-
-    if (id && certificates[id]) {
-      document.getElementById("result").innerHTML = `
-        <p class="found">✅ Certificate Verified</p>
-        <p><strong>Name:</strong> ${certificates[id].name}</p>
-        <p><strong>Course:</strong> ${certificates[id].course}</p>
-        <p><strong>Year:</strong> ${certificates[id].year}</p>
-      `;
-    } else {
-      document.getElementById("result").innerHTML = `<p class="not-found">❌ Certificate not found</p>`;
-    }
-  </script>
+    <script>
+        // Add your certificate verification logic here
+        const certificates = {
+            // Your certificate data goes here
+        };
+        
+        // URL parameter reading logic
+        const urlParams = new URLSearchParams(window.location.search);
+        const certId = urlParams.get('id');
+        
+        // Display logic
+        if (certId && certificates[certId]) {
+            document.getElementById('certificate-result').innerHTML = 
+                `Valid Certificate: ${certificates[certId].name}`;
+        } else {
+            document.getElementById('certificate-result').innerHTML = 
+                'Certificate not found';
+        }
+    </script>
 </body>
 </html>
