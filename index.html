@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KBZ Bank - Balance Certificate</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .certificate-container {
+            width: 100%;
+            max-width: 800px;
+            background-color: white;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .certificate-header {
+            background-color: #1a3a8f;
+            color: white;
+            padding: 25px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .certificate-header h1 {
+            font-size: 28px;
+            margin-bottom: 5px;
+            letter-spacing: 1px;
+        }
+        
+        .certificate-header h2 {
+            font-size: 20px;
+            font-weight: normal;
+            margin-bottom: 15px;
+        }
+        
+        .certificate-body {
+            padding: 40px;
+        }
+        
+        .bank-logo {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .bank-logo h3 {
+            font-size: 24px;
+            color: #1a3a8f;
+            margin-bottom: 5px;
+        }
+        
+        .certificate-title {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .certificate-title h2 {
+            font-size: 26px;
+            color: #333;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .certificate-title p {
+            font-size: 16px;
+            color: #666;
+        }
+        
+        .account-details {
+            margin-bottom: 40px;
+        }
+        
+        .detail-row {
+            display: flex;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .detail-label {
+            width: 200px;
+            font-weight: bold;
+            color: #555;
+        }
+        
+        .detail-value {
+            flex: 1;
+            color: #333;
+        }
+        
+        .balance-amount {
+            text-align: center;
+            margin: 40px 0;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+        }
+        
+        .balance-amount .amount {
+            font-size: 32px;
+            font-weight: bold;
+            color: #1a3a8f;
+            margin-bottom: 10px;
+        }
+        
+        .balance-amount .amount-in-words {
+            font-size: 18px;
+            color: #555;
+            font-style: italic;
+        }
+        
+        .validity {
+            text-align: center;
+            margin: 30px 0;
+            font-size: 16px;
+            color: #555;
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 50px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+            color: #666;
+            font-size: 14px;
+        }
+        
+        .contact-info {
+            margin-top: 20px;
+            line-height: 1.6;
+        }
+        
+        .watermark {
+            position: absolute;
+            opacity: 0.03;
+            font-size: 120px;
+            color: #1a3a8f;
+            transform: rotate(-45deg);
+            top: 40%;
+            left: 10%;
+            z-index: 0;
+            pointer-events: none;
+        }
+        
+        @media print {
+            body {
+                background-color: white;
+                padding: 0;
+            }
+            
+            .certificate-container {
+                box-shadow: none;
+                border-radius: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="certificate-container">
+        <div class="watermark">KBZ BANK</div>
+        
+        <div class="certificate-header">
+            <h1>KBZ BANK</h1>
+            <h2>BALANCE CERTIFICATE</h2>
+        </div>
+        
+        <div class="certificate-body">
+            <div class="bank-logo">
+                <h3>KANBAWZA BANK LIMITED</h3>
+            </div>
+            
+            <div class="certificate-title">
+                <h2>Balance Certificate</h2>
+                <p>This document certifies the account balance as of the date specified below</p>
+            </div>
+            
+            <div class="account-details">
+                <div class="detail-row">
+                    <div class="detail-label">Account Holder:</div>
+                    <div class="detail-value">U SOE PANG OO</div>
+                </div>
+                
+                <div class="detail-row">
+                    <div class="detail-label">Account Number:</div>
+                    <div class="detail-value">32451132400218601</div>
+                </div>
+                
+                <div class="detail-row">
+                    <div class="detail-label">Account Type:</div>
+                    <div class="detail-value">Call Deposit Account</div>
+                </div>
+                
+                <div class="detail-row">
+                    <div class="detail-label">Address:</div>
+                    <div class="detail-value">NO(1149)B, SAYAR THEN STREET</div>
+                </div>
+                
+                <div class="detail-row">
+                    <div class="detail-label">Branch:</div>
+                    <div class="detail-value">HMAWBI BRANCH (324)</div>
+                </div>
+                
+                <div class="detail-row">
+                    <div class="detail-label">Date:</div>
+                    <div class="detail-value">03 September 2025</div>
+                </div>
+            </div>
+            
+            <div class="balance-amount">
+                <div class="amount">10,510,000.00 MMK</div>
+                <div class="amount-in-words">Kyats One Hundred Six Million Five Hundred Ten Thousand Only</div>
+            </div>
+            
+            <div class="validity">
+                <p>This Balance Certificate is valid until <strong>02 December 2025</strong>.</p>
+            </div>
+            
+            <div class="footer">
+                <p>Thank You for banking with Kanbawza Bank Limited.</p>
+                
+                <div class="contact-info">
+                    <p>No.615/1, Pyay Road, Kamayut Township, Yangon, Myanmar</p>
+                    <p>Call Center: 95 9 951018555</p>
+                    <p>Email: customer_service@kbzbank.com</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
