@@ -11,21 +11,54 @@
             margin: 0 auto;
             padding: 20px;
             text-align: center;
+            background: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
         .certificate {
-            border: 2px solid #333;
-            padding: 20px;
+            border: 3px solid #28a745;
+            padding: 25px;
             margin: 20px 0;
-            background: #f9f9f9;
+            background: #f8fff9;
+            border-radius: 8px;
         }
-        .valid { color: green; }
-        .invalid { color: red; }
+        .instructions {
+            background: #e7f3ff;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            text-align: left;
+        }
+        .valid { color: #28a745; }
+        .invalid { color: #dc3545; }
+        .demo-links { margin: 15px 0; }
+        .demo-links a {
+            display: inline-block;
+            margin: 5px;
+            padding: 8px 15px;
+            background: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        code {
+            background: #f4f4f4;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: monospace;
+        }
     </style>
 </head>
 <body>
-    <h1>Certificate Verification</h1>
-    <div id="certificate-result">
-        <p>Enter a certificate ID in the URL like: <code>?id=12345</code></p>
+    <div class="container">
+        <h1>🎓 Certificate Verification System</h1>
+        <div id="certificate-result">
+            <!-- This will be filled by JavaScript -->
+        </div>
     </div>
 
     <script>
@@ -55,7 +88,7 @@
         const urlParams = new URLSearchParams(window.location.search);
         const certId = urlParams.get('id');
 
-        // Display certificate information
+        // Display appropriate message
         const resultDiv = document.getElementById('certificate-result');
         
         if (certId) {
@@ -69,7 +102,9 @@
                         <p><strong>Course:</strong> ${cert.course}</p>
                         <p><strong>Date Issued:</strong> ${cert.date}</p>
                         <p><strong>Issued By:</strong> ${cert.issuedBy}</p>
+                        <p><em>This certificate has been successfully verified.</em></p>
                     </div>
+                    <p><a href="/testing123/">← Verify another certificate</a></p>
                 `;
             } else {
                 resultDiv.innerHTML = `
@@ -78,12 +113,41 @@
                         <p>No certificate found with ID: <strong>${certId}</strong></p>
                         <p>Please check the certificate ID and try again.</p>
                     </div>
+                    <div class="instructions">
+                        <h3>Need help?</h3>
+                        <p>Make sure you:</p>
+                        <ul>
+                            <li>Entered the correct Certificate ID</li>
+                            <li>Included the ID in the URL like: <code>?id=YOUR_ID</code></li>
+                            <li>Used the exact ID provided on your certificate</li>
+                        </ul>
+                    </div>
+                    <p><a href="/testing123/">← Back to verification</a></p>
                 `;
             }
         } else {
             resultDiv.innerHTML = `
-                <p>To verify a certificate, add <code>?id=YOUR_CERTIFICATE_ID</code> to the URL</p>
-                <p>Example: <a href="?id=12345">?id=12345</a></p>
+                <div class="instructions">
+                    <h2>🔍 Verify a Certificate</h2>
+                    <p>To verify a certificate, you need the Certificate ID.</p>
+                    
+                    <h3>How to verify:</h3>
+                    <ol>
+                        <li>Find the Certificate ID on your certificate document</li>
+                        <li>Add <code>?id=YOUR_CERTIFICATE_ID</code> to this page's URL</li>
+                        <li>Or use the demo links below to test the system</li>
+                    </ol>
+
+                    <div class="demo-links">
+                        <h3>Test with demo certificates:</h3>
+                        <a href="?id=12345">Verify Certificate 12345</a>
+                        <a href="?id=67890">Verify Certificate 67890</a>
+                        <a href="?id=ABC123">Verify Certificate ABC123</a>
+                    </div>
+
+                    <h3>Example URL format:</h3>
+                    <p><code>https://4qr7brqhbw-cloud.github.io/testing123/?id=YOUR_ID_HERE</code></p>
+                </div>
             `;
         }
     </script>
