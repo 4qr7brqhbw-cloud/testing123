@@ -3,153 +3,407 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Certificate Verification</title>
+    <title>KBIZ BANK - Balance Certificate Verification</title>
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
             max-width: 800px;
             margin: 0 auto;
-            padding: 20px;
+        }
+        
+        .header {
             text-align: center;
-            background: #f5f5f5;
+            color: white;
+            margin-bottom: 30px;
         }
-        .container {
+        
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .header .subtitle {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+        
+        .verification-box {
             background: white;
+            border-radius: 15px;
             padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            margin-bottom: 20px;
         }
-        .certificate {
-            border: 3px solid #28a745;
-            padding: 25px;
-            margin: 20px 0;
-            background: #f8fff9;
+        
+        .search-section {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .search-input {
+            width: 300px;
+            padding: 12px 15px;
+            font-size: 16px;
+            border: 2px solid #ddd;
             border-radius: 8px;
+            margin-right: 10px;
         }
-        .instructions {
-            background: #e7f3ff;
+        
+        .search-button {
+            padding: 12px 25px;
+            background: #2a5298;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        
+        .search-button:hover {
+            background: #1e3c72;
+        }
+        
+        .certificate {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border: 3px solid #2a5298;
+            border-radius: 10px;
+            padding: 30px;
+            position: relative;
+        }
+        
+        .bank-logo {
+            text-align: center;
+            color: #2a5298;
+            font-size: 2em;
+            font-weight: bold;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #2a5298;
+            padding-bottom: 10px;
+        }
+        
+        .certificate-title {
+            text-align: center;
+            font-size: 1.5em;
+            color: #2a5298;
+            margin-bottom: 25px;
+            font-weight: bold;
+        }
+        
+        .certificate-details {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+        
+        .detail-group {
+            margin-bottom: 15px;
+        }
+        
+        .detail-label {
+            font-weight: bold;
+            color: #555;
+            font-size: 0.9em;
+            margin-bottom: 5px;
+        }
+        
+        .detail-value {
+            font-size: 1.1em;
+            color: #333;
+            padding: 8px;
+            background: white;
+            border-radius: 5px;
+            border-left: 4px solid #2a5298;
+        }
+        
+        .balance-section {
+            background: white;
             padding: 20px;
             border-radius: 8px;
+            border: 2px solid #28a745;
             margin: 20px 0;
-            text-align: left;
         }
-        .valid { color: #28a745; }
-        .invalid { color: #dc3545; }
-        .demo-links { margin: 15px 0; }
-        .demo-links a {
+        
+        .balance-figures {
+            font-size: 2em;
+            color: #28a745;
+            font-weight: bold;
+            text-align: center;
+            margin: 10px 0;
+        }
+        
+        .balance-words {
+            text-align: center;
+            font-style: italic;
+            color: #555;
+            border-top: 1px solid #ddd;
+            padding-top: 10px;
+        }
+        
+        .validity {
+            text-align: center;
+            color: #dc3545;
+            font-weight: bold;
+            margin: 15px 0;
+        }
+        
+        .footer {
+            text-align: center;
+            color: #666;
+            font-size: 0.9em;
+            margin-top: 25px;
+            padding-top: 15px;
+            border-top: 1px solid #ddd;
+        }
+        
+        .demo-section {
+            text-align: center;
+            margin-top: 20px;
+        }
+        
+        .demo-button {
             display: inline-block;
             margin: 5px;
             padding: 8px 15px;
-            background: #007bff;
+            background: #6c757d;
             color: white;
             text-decoration: none;
             border-radius: 5px;
+            font-size: 0.9em;
         }
-        code {
-            background: #f4f4f4;
-            padding: 2px 6px;
-            border-radius: 3px;
-            font-family: monospace;
+        
+        .demo-button:hover {
+            background: #545b62;
+        }
+        
+        .instructions {
+            background: #e7f3ff;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            font-size: 0.9em;
+        }
+        
+        @media (max-width: 768px) {
+            .certificate-details {
+                grid-template-columns: 1fr;
+            }
+            
+            .search-input {
+                width: 100%;
+                margin-bottom: 10px;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>🎓 Certificate Verification System</h1>
-        <div id="certificate-result">
-            <!-- This will be filled by JavaScript -->
+        <div class="header">
+            <h1>KBIZ BANK</h1>
+            <div class="subtitle">Balance Certificate Verification System</div>
+        </div>
+        
+        <div class="verification-box">
+            <div class="search-section">
+                <input type="text" class="search-input" id="certificateId" placeholder="Enter Certificate Number">
+                <button class="search-button" onclick="verifyCertificate()">Verify Certificate</button>
+            </div>
+            
+            <div id="certificate-result">
+                <div class="instructions">
+                    <h3>How to Verify:</h3>
+                    <p>Enter the Certificate Number provided on your balance certificate to verify its authenticity.</p>
+                    <p><strong>Demo Certificates:</strong> Try with numbers like <code>KBZ-2024-001</code>, <code>KBZ-2024-002</code>, or <code>KBZ-2024-003</code></p>
+                </div>
+            </div>
+            
+            <div class="demo-section">
+                <p><strong>Quick Test:</strong></p>
+                <a href="javascript:void(0)" class="demo-button" onclick="testCertificate('KBZ-2024-001')">Test Certificate 001</a>
+                <a href="javascript:void(0)" class="demo-button" onclick="testCertificate('KBZ-2024-002')">Test Certificate 002</a>
+                <a href="javascript:void(0)" class="demo-button" onclick="testCertificate('KBZ-2024-003')">Test Certificate 003</a>
+            </div>
         </div>
     </div>
 
     <script>
-        // Certificate database - ADD YOUR REAL CERTIFICATE DATA HERE
+        // Bank Certificate Database
         const certificates = {
-            "12345": {
-                name: "John Doe",
-                course: "Web Development Fundamentals",
-                date: "2024-01-15",
-                issuedBy: "Your Organization"
+            "KBZ-2024-001": {
+                bank: "KANBAWZA BANK LIMITED",
+                accountHolder: "U SOE PAING OO",
+                accountNumber: "32451132400218601",
+                accountType: "Call Deposit Account",
+                nrcPassport: "14/AHMANA(N)088212",
+                address: "NO(1149)B, SAYAR THEIN STREET (1)QTR HMAWBI YANGON",
+                issuingBranch: "HMAWBI BRANCH (324)",
+                issuingDate: "03 Sep 2024",
+                balanceDate: "03 Sep 2024",
+                balanceFigures: "106,510,000.00 MMK",
+                balanceWords: "Kyats One Hundred Six Million Five Hundred Ten Thousand Only",
+                validUntil: "02 December 2024"
             },
-            "67890": {
-                name: "Jane Smith", 
-                course: "Data Science Basics",
-                date: "2024-01-20",
-                issuedBy: "Your Organization"
+            "KBZ-2024-002": {
+                bank: "KANBAWZA BANK LIMITED",
+                accountHolder: "DAW AYE AYE MYINT",
+                accountNumber: "32451132400218602",
+                accountType: "Savings Account",
+                nrcPassport: "12/KAKAHA(N)123456",
+                address: "NO(55), ANARWARTA STREET, YANGON",
+                issuingBranch: "YANGON BRANCH (101)",
+                issuingDate: "15 Sep 2024",
+                balanceDate: "15 Sep 2024",
+                balanceFigures: "45,250,000.00 MMK",
+                balanceWords: "Kyats Forty-Five Million Two Hundred Fifty Thousand Only",
+                validUntil: "14 December 2024"
             },
-            "ABC123": {
-                name: "Mike Johnson",
-                course: "JavaScript Mastery",
-                date: "2024-02-01",
-                issuedBy: "Your Organization"
+            "KBZ-2024-003": {
+                bank: "KANBAWZA BANK LIMITED",
+                accountHolder: "U TUN TUN NAING",
+                accountNumber: "32451132400218603",
+                accountType: "Current Account",
+                nrcPassport: "5/PAKAKA(N)654321",
+                address: "NO(221), PYAY ROAD, YANGON",
+                issuingBranch: "PYAY ROAD BRANCH (205)",
+                issuingDate: "20 Sep 2024",
+                balanceDate: "20 Sep 2024",
+                balanceFigures: "28,750,000.00 MMK",
+                balanceWords: "Kyats Twenty-Eight Million Seven Hundred Fifty Thousand Only",
+                validUntil: "19 December 2024"
             }
         };
 
-        // Get certificate ID from URL
-        const urlParams = new URLSearchParams(window.location.search);
-        const certId = urlParams.get('id');
+        function verifyCertificate() {
+            const certId = document.getElementById('certificateId').value.trim();
+            displayCertificate(certId);
+        }
 
-        // Display appropriate message
-        const resultDiv = document.getElementById('certificate-result');
-        
-        if (certId) {
-            if (certificates[certId]) {
+        function testCertificate(certId) {
+            document.getElementById('certificateId').value = certId;
+            displayCertificate(certId);
+        }
+
+        function displayCertificate(certId) {
+            const resultDiv = document.getElementById('certificate-result');
+            
+            if (certId && certificates[certId]) {
                 const cert = certificates[certId];
                 resultDiv.innerHTML = `
                     <div class="certificate">
-                        <h2 class="valid">✅ Valid Certificate Found</h2>
-                        <p><strong>Certificate ID:</strong> ${certId}</p>
-                        <p><strong>Name:</strong> ${cert.name}</p>
-                        <p><strong>Course:</strong> ${cert.course}</p>
-                        <p><strong>Date Issued:</strong> ${cert.date}</p>
-                        <p><strong>Issued By:</strong> ${cert.issuedBy}</p>
-                        <p><em>This certificate has been successfully verified.</em></p>
+                        <div class="bank-logo">KBIZ BANK</div>
+                        <div class="certificate-title">BALANCE CERTIFICATE</div>
+                        
+                        <div style="text-align: center; margin-bottom: 20px; font-weight: bold;">
+                            DETAILS OF THE ISSUING CERTIFICATE
+                        </div>
+                        
+                        <div class="certificate-details">
+                            <div class="detail-group">
+                                <div class="detail-label">Bank:</div>
+                                <div class="detail-value">${cert.bank}</div>
+                            </div>
+                            
+                            <div class="detail-group">
+                                <div class="detail-label">Account Holder Name:</div>
+                                <div class="detail-value">${cert.accountHolder}</div>
+                            </div>
+                            
+                            <div class="detail-group">
+                                <div class="detail-label">Account Number:</div>
+                                <div class="detail-value">${cert.accountNumber}</div>
+                            </div>
+                            
+                            <div class="detail-group">
+                                <div class="detail-label">Account Type:</div>
+                                <div class="detail-value">${cert.accountType}</div>
+                            </div>
+                            
+                            <div class="detail-group">
+                                <div class="detail-label">NRC/Passport No.:</div>
+                                <div class="detail-value">${cert.nrcPassport}</div>
+                            </div>
+                            
+                            <div class="detail-group">
+                                <div class="detail-label">Address:</div>
+                                <div class="detail-value">${cert.address}</div>
+                            </div>
+                            
+                            <div class="detail-group">
+                                <div class="detail-label">Issuing Branch:</div>
+                                <div class="detail-value">${cert.issuingBranch}</div>
+                            </div>
+                            
+                            <div class="detail-group">
+                                <div class="detail-label">Issuing Date:</div>
+                                <div class="detail-value">${cert.issuingDate}</div>
+                            </div>
+                            
+                            <div class="detail-group">
+                                <div class="detail-label">Date of Balance:</div>
+                                <div class="detail-value">${cert.balanceDate}</div>
+                            </div>
+                        </div>
+                        
+                        <div class="balance-section">
+                            <div class="detail-label">Balance in Figures:</div>
+                            <div class="balance-figures">${cert.balanceFigures}</div>
+                            <div class="detail-label">Balance in Words:</div>
+                            <div class="balance-words">${cert.balanceWords}</div>
+                        </div>
+                        
+                        <div class="validity">
+                            This Balance Certificate is valid until ${cert.validUntil}.
+                        </div>
+                        
+                        <div class="footer">
+                            Thank You for banking with Kanbawza Bank Limited.<br>
+                            No.615/1, Pyay Road, Kamayut Township, Yangon, Myanmar<br>
+                            Call Center: +95 9 951018555 | Email: customer_service@kbzbank.com
+                        </div>
                     </div>
-                    <p><a href="/testing123/">← Verify another certificate</a></p>
+                `;
+            } else if (certId) {
+                resultDiv.innerHTML = `
+                    <div style="text-align: center; color: #dc3545; padding: 20px;">
+                        <h2>❌ Certificate Not Found</h2>
+                        <p>No balance certificate found with number: <strong>${certId}</strong></p>
+                        <p>Please check the certificate number and try again.</p>
+                    </div>
                 `;
             } else {
                 resultDiv.innerHTML = `
-                    <div class="invalid">
-                        <h2>❌ Certificate Not Found</h2>
-                        <p>No certificate found with ID: <strong>${certId}</strong></p>
-                        <p>Please check the certificate ID and try again.</p>
-                    </div>
                     <div class="instructions">
-                        <h3>Need help?</h3>
-                        <p>Make sure you:</p>
-                        <ul>
-                            <li>Entered the correct Certificate ID</li>
-                            <li>Included the ID in the URL like: <code>?id=YOUR_ID</code></li>
-                            <li>Used the exact ID provided on your certificate</li>
-                        </ul>
+                        <h3>How to Verify:</h3>
+                        <p>Enter the Certificate Number provided on your balance certificate to verify its authenticity.</p>
+                        <p><strong>Demo Certificates:</strong> Try with numbers like <code>KBZ-2024-001</code>, <code>KBZ-2024-002</code>, or <code>KBZ-2024-003</code></p>
                     </div>
-                    <p><a href="/testing123/">← Back to verification</a></p>
                 `;
             }
-        } else {
-            resultDiv.innerHTML = `
-                <div class="instructions">
-                    <h2>🔍 Verify a Certificate</h2>
-                    <p>To verify a certificate, you need the Certificate ID.</p>
-                    
-                    <h3>How to verify:</h3>
-                    <ol>
-                        <li>Find the Certificate ID on your certificate document</li>
-                        <li>Add <code>?id=YOUR_CERTIFICATE_ID</code> to this page's URL</li>
-                        <li>Or use the demo links below to test the system</li>
-                    </ol>
-
-                    <div class="demo-links">
-                        <h3>Test with demo certificates:</h3>
-                        <a href="?id=12345">Verify Certificate 12345</a>
-                        <a href="?id=67890">Verify Certificate 67890</a>
-                        <a href="?id=ABC123">Verify Certificate ABC123</a>
-                    </div>
-
-                    <h3>Example URL format:</h3>
-                    <p><code>https://4qr7brqhbw-cloud.github.io/testing123/?id=YOUR_ID_HERE</code></p>
-                </div>
-            `;
         }
+
+        // Check for URL parameter on page load
+        window.addEventListener('load', function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const certId = urlParams.get('id');
+            if (certId) {
+                document.getElementById('certificateId').value = certId;
+                displayCertificate(certId);
+            }
+        });
     </script>
 </body>
 </html>
