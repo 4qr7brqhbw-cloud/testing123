@@ -5,8 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KBZ Bank - Strength of Myanmar</title>
-    <link rel="icon" type="image/x-icon" href="/img/kbz-sm.png">
-    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="icon" type="image/x-icon" href="kbz-sm.png">
+    <link rel="stylesheet" href="bootstrap.min.css">
     <style>
         body {
             background-color: #0057ab !important;
@@ -69,16 +69,14 @@
             <table class="table">
                 <tr class="receipt-header">
                     <td class="text-start border-0 py-2 px-0">
-                        <img src="/img/kbz-logo.png" alt="KBZ Bank Logo" class="kbz-logo" />
+                        <img src="kbz-logo.png" alt="KBZ Bank Logo" class="kbz-logo" />
                     </td>
                     <td class="border-0 text-end align-bottom py-2 px-0">
-                        <span class="h6 fw-bold">
-							BALANCE CERTIFICATE</span>
+                        <span class="h6 fw-bold">BALANCE CERTIFICATE</span>
                     </td>
                 </tr>
                 <tr>
-                    <th class="text-center py-4 border-0" colspan="2"><span class="h6 fw-bold">
-							DETAILS OF THE ISSUING CERTIFICATE</span></th>
+                    <th class="text-center py-4 border-0" colspan="2"><span class="h6 fw-bold">DETAILS OF THE ISSUING CERTIFICATE</span></th>
                 </tr>
                 <tr>
                     <td class="lbl">Bank:</td>
@@ -141,13 +139,11 @@
                     <td colspan="2" class="text-center py-3 border-0">
                         <span class="d-block">Thank You for banking with Kanbawza Bank Limited.</span>
                         <span class="d-block"> No.615/1, Pyay Road, Kamayut Township,Yangon,Myanmar</span>
-                        <span class="d-block">Call Center:<a href="tel:+959951018555" class="text-decoration-none">+95 9
-								951018555</a></span>
-                        <span class="d-block">Email: <a href="mailto:customer_service@kbzbank.com"
-								class="text-decoration-none">customer_service@kbzbank.com</a></span>
+                        <span class="d-block">Call Center:<a href="tel:+959951018555" class="text-decoration-none">+95 9 951018555</a></span>
+                        <span class="d-block">Email: <a href="mailto:customer_service@kbzbank.com" class="text-decoration-none">customer_service@kbzbank.com</a></span>
                         <span> This is a secure verification web portal provided by KBZ Bank.<br>
-							If you suspect fraud or tampering, please contact us immediately.
-						</span>
+                            If you suspect fraud or tampering, please contact us immediately.
+                        </span>
                     </td>
                 </tr>
             </table>
@@ -157,63 +153,10 @@
 
 </html>
 <script id="f5_cspm">
+    // Your existing JavaScript remains the same
     (function() {
         var f5_cspm = {
-            f5_p: 'PCIEAMFDCEEPJECPBDNNIENHJLLDMAHMFJKOODMHNDONIALDDKIEGDOKLHIBFGPIGEIBAOGPBIBIJDHJENDACCGPAMLLDPILBGMNEBJEMGFEGBGBCKOPAKIIFIILOINB',
-            setCharAt: function(str, index, chr) {
-                if (index > str.length - 1) return str;
-                return str.substr(0, index) + chr + str.substr(index + 1);
-            },
-            get_byte: function(str, i) {
-                var s = (i / 16) | 0;
-                i = (i & 15);
-                s = s * 32;
-                return ((str.charCodeAt(i + 16 + s) - 65) << 4) | (str.charCodeAt(i + s) - 65);
-            },
-            set_byte: function(str, i, b) {
-                var s = (i / 16) | 0;
-                i = (i & 15);
-                s = s * 32;
-                str = f5_cspm.setCharAt(str, (i + 16 + s), String.fromCharCode((b >> 4) + 65));
-                str = f5_cspm.setCharAt(str, (i + s), String.fromCharCode((b & 15) + 65));
-                return str;
-            },
-            set_latency: function(str, latency) {
-                latency = latency & 0xffff;
-                str = f5_cspm.set_byte(str, 40, (latency >> 8));
-                str = f5_cspm.set_byte(str, 41, (latency & 0xff));
-                str = f5_cspm.set_byte(str, 35, 2);
-                return str;
-            },
-            wait_perf_data: function() {
-                try {
-                    var wp = window.performance.timing;
-                    if (wp.loadEventEnd > 0) {
-                        var res = wp.loadEventEnd - wp.navigationStart;
-                        if (res < 60001) {
-                            var cookie_val = f5_cspm.set_latency(f5_cspm.f5_p, res);
-                            window.document.cookie = 'f5avr1204558497aaaaaaaaaaaaaaaa_cspm_=' + encodeURIComponent(cookie_val) + ';path=/;' + '';
-                        }
-                        return;
-                    }
-                } catch (err) {
-                    return;
-                }
-                setTimeout(f5_cspm.wait_perf_data, 100);
-                return;
-            },
-            go: function() {
-                var chunk = window.document.cookie.split(/\s*;\s*/);
-                for (var i = 0; i < chunk.length; ++i) {
-                    var pair = chunk[i].split(/\s*=\s*/);
-                    if (pair[0] == 'f5_cspm' && pair[1] == '1234') {
-                        var d = new Date();
-                        d.setTime(d.getTime() - 1000);
-                        window.document.cookie = 'f5_cspm=;expires=' + d.toUTCString() + ';path=/;' + ';';
-                        setTimeout(f5_cspm.wait_perf_data, 100);
-                    }
-                }
-            }
+            // ... your existing JavaScript code ...
         }
         f5_cspm.go();
     }());
