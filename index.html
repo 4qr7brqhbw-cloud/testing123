@@ -3,164 +3,245 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KBZ Bank - Strength of Myanmar</title>
+    <title>KBZ Bank - Balance Certificate</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
+        * {
             margin: 0;
-            padding: 40px;
-            background: white;
-            line-height: 1.6;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-        .certificate {
+        
+        body {
+            background-color: #f5f5f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .certificate-container {
+            width: 100%;
             max-width: 800px;
-            margin: 0 auto;
-            background: white;
+            background-color: white;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
+            position: relative;
         }
-        .bank-header {
+        
+        .certificate-header {
+            background-color: #1a3a8f;
+            color: white;
+            padding: 25px;
             text-align: center;
+            position: relative;
+        }
+        
+        .certificate-header h1 {
             font-size: 28px;
-            font-weight: bold;
-            margin-bottom: 30px;
-            text-transform: uppercase;
+            margin-bottom: 5px;
+            letter-spacing: 1px;
         }
-        .certificate-title {
+        
+        .certificate-header h2 {
+            font-size: 20px;
+            font-weight: normal;
+            margin-bottom: 15px;
+        }
+        
+        .certificate-body {
+            padding: 40px;
+        }
+        
+        .bank-logo {
             text-align: center;
-            font-size: 22px;
-            font-weight: bold;
             margin-bottom: 30px;
-            text-transform: uppercase;
-            text-decoration: underline;
         }
-        .details-title {
-            text-align: center;
-            font-weight: bold;
-            margin-bottom: 25px;
-            text-transform: uppercase;
-        }
-        .detail-section {
+        
+        .bank-logo h3 {
+            font-size: 24px;
+            color: #1a3a8f;
             margin-bottom: 5px;
         }
-        .detail-label {
-            font-weight: bold;
-            margin-bottom: 2px;
+        
+        .certificate-title {
+            text-align: center;
+            margin-bottom: 40px;
         }
-        .detail-value {
+        
+        .certificate-title h2 {
+            font-size: 26px;
+            color: #333;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .certificate-title p {
+            font-size: 16px;
+            color: #666;
+        }
+        
+        .account-details {
+            margin-bottom: 40px;
+        }
+        
+        .detail-row {
+            display: flex;
             margin-bottom: 15px;
-            margin-left: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
         }
-        .balance-section {
-            margin: 25px 0;
-        }
-        .balance-figures {
+        
+        .detail-label {
+            width: 200px;
             font-weight: bold;
-            margin: 10px 0;
+            color: #555;
+        }
+        
+        .detail-value {
+            flex: 1;
+            color: #333;
+        }
+        
+        .balance-amount {
             text-align: center;
+            margin: 40px 0;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+        }
+        
+        .balance-amount .amount {
+            font-size: 32px;
+            font-weight: bold;
+            color: #1a3a8f;
+            margin-bottom: 10px;
+        }
+        
+        .balance-amount .amount-in-words {
             font-size: 18px;
-        }
-        .balance-words {
+            color: #555;
             font-style: italic;
-            margin: 10px 0;
-            text-align: center;
         }
+        
         .validity {
             text-align: center;
-            font-weight: bold;
             margin: 30px 0;
+            font-size: 16px;
+            color: #555;
         }
+        
         .footer {
             text-align: center;
-            margin-top: 40px;
+            margin-top: 50px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+            color: #666;
             font-size: 14px;
-            line-height: 1.4;
         }
-        .separator {
-            border-top: 1px solid #000;
-            margin: 20px 0;
+        
+        .contact-info {
+            margin-top: 20px;
+            line-height: 1.6;
         }
-        .center-line {
-            text-align: center;
-            margin: 10px 0;
+        
+        .watermark {
+            position: absolute;
+            opacity: 0.03;
+            font-size: 120px;
+            color: #1a3a8f;
+            transform: rotate(-45deg);
+            top: 40%;
+            left: 10%;
+            z-index: 0;
+            pointer-events: none;
+        }
+        
+        @media print {
+            body {
+                background-color: white;
+                padding: 0;
+            }
+            
+            .certificate-container {
+                box-shadow: none;
+                border-radius: 0;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="certificate">
-        <div class="bank-header">KBZ BANK</div>
-        <div class="certificate-title">BALANCE CERTIFICATE</div>
+    <div class="certificate-container">
+        <div class="watermark">KBZ BANK</div>
         
-        <div class="details-title">DETAILS OF THE ISSUING CERTIFICATE</div>
-        
-        <div class="detail-section">
-            <div class="detail-label">Bank:</div>
-            <div class="detail-value">KANBAWZA BANK LIMITED</div>
+        <div class="certificate-header">
+            <h1>KBZ BANK</h1>
+            <h2>BALANCE CERTIFICATE</h2>
         </div>
         
-        <div class="detail-section">
-            <div class="detail-label">Account Holder Name:</div>
-            <div class="detail-value">U SOE PAING OO</div>
-        </div>
-        
-        <div class="detail-section">
-            <div class="detail-label">Account Number:</div>
-            <div class="detail-value">32451132400218601</div>
-        </div>
-        
-        <div class="detail-section">
-            <div class="detail-label">Account Type:</div>
-            <div class="detail-value">Call Deposit Account</div>
-        </div>
-        
-        <div class="detail-section">
-            <div class="detail-label">NRC/Passport No.:</div>
-            <div class="detail-value">14/AHMANA(N)088212</div>
-        </div>
-        
-        <div class="detail-section">
-            <div class="detail-label">Address:</div>
-            <div class="detail-value">NO(1149)B,SAYAR THEIN STREET<br>(1)QTR HMAWBI YANGON</div>
-        </div>
-        
-        <div class="detail-section">
-            <div class="detail-label">Issuing Branch:</div>
-            <div class="detail-value">HMAWBI BRANCH (324)</div>
-        </div>
-        
-        <div class="detail-section">
-            <div class="detail-label">Issuing Date:</div>
-            <div class="detail-value">03 Sep 2025</div>
-        </div>
-        
-        <div class="detail-section">
-            <div class="detail-label">Date of Balance:</div>
-            <div class="detail-value">03 Sep 2025</div>
-        </div>
-        
-        <div class="separator"></div>
-        
-        <div class="balance-section">
-            <div class="center-line">
-                <strong>Balance in Figures:</strong>
+        <div class="certificate-body">
+            <div class="bank-logo">
+                <h3>KANBAWZA BANK LIMITED</h3>
             </div>
-            <div class="balance-figures">106,510,000.00 MMK</div>
             
-            <div class="center-line">
-                <strong>Balance in Words:</strong>
+            <div class="certificate-title">
+                <h2>Balance Certificate</h2>
+                <p>This document certifies the account balance as of the date specified below</p>
             </div>
-            <div class="balance-words">Kyats One Hundred Six Million Five<br>Hundred Ten Thousand Only</div>
-        </div>
-        
-        <div class="separator"></div>
-        
-        <div class="validity">
-            This Balance Certificate is valid until 02 December 2025.
-        </div>
-        
-        <div class="footer">
-            Thank You for banking with Kanbawza Bank Limited.<br>
-            No.615/1,Pyay Road,Kamayut Township,Yangon.Myanmar<br>
-            Call Center:+959 951018555<br>
-            Email: customer_service@kbzbank.com
+            
+            <div class="account-details">
+                <div class="detail-row">
+                    <div class="detail-label">Account Holder:</div>
+                    <div class="detail-value">U SOE PANG OO</div>
+                </div>
+                
+                <div class="detail-row">
+                    <div class="detail-label">Account Number:</div>
+                    <div class="detail-value">32451132400218601</div>
+                </div>
+                
+                <div class="detail-row">
+                    <div class="detail-label">Account Type:</div>
+                    <div class="detail-value">Call Deposit Account</div>
+                </div>
+                
+                <div class="detail-row">
+                    <div class="detail-label">Address:</div>
+                    <div class="detail-value">NO(1149)B, SAYAR THEN STREET</div>
+                </div>
+                
+                <div class="detail-row">
+                    <div class="detail-label">Branch:</div>
+                    <div class="detail-value">HMAWBI BRANCH (324)</div>
+                </div>
+                
+                <div class="detail-row">
+                    <div class="detail-label">Date:</div>
+                    <div class="detail-value">03 September 2025</div>
+                </div>
+            </div>
+            
+            <div class="balance-amount">
+                <div class="amount">10,510,000.00 MMK</div>
+                <div class="amount-in-words">Kyats One Hundred Six Million Five Hundred Ten Thousand Only</div>
+            </div>
+            
+            <div class="validity">
+                <p>This Balance Certificate is valid until <strong>02 December 2025</strong>.</p>
+            </div>
+            
+            <div class="footer">
+                <p>Thank You for banking with Kanbawza Bank Limited.</p>
+                
+                <div class="contact-info">
+                    <p>No.615/1, Pyay Road, Kamayut Township, Yangon, Myanmar</p>
+                    <p>Call Center: 95 9 951018555</p>
+                    <p>Email: customer_service@kbzbank.com</p>
+                </div>
+            </div>
         </div>
     </div>
 </body>
