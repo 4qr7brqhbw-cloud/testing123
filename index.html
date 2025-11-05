@@ -1,367 +1,70 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Will you... ?</title>
-  <style>
-    :root{
-      --bg:#0b0b0b;
-      --accent:#e63946;   /* Chainsaw-Man red */
-      --neon:#9cff00;     /* toxic neon accent */
-      --muted:#222;
-      --glass: rgba(255,255,255,0.06);
-      --font-s: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-    }
-    html,body{height:100%;margin:0;font-family:var(--font-s);background:radial-gradient(ellipse at 20% 10%, rgba(230,57,70,0.06), transparent 10%), var(--bg);color:#fff;}
-    .wrap{
-      min-height:100%;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      padding:32px;
-      box-sizing:border-box;
-    }
-
-    .card{
-      width:980px;
-      max-width:96vw;
-      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-      border-radius:20px;
-      padding:28px;
-      box-shadow: 0 12px 40px rgba(0,0,0,0.7), 0 0 40px rgba(230,57,70,0.07) inset;
-      display:grid;
-      grid-template-columns: 280px 1fr;
-      gap:22px;
-      position:relative;
-      overflow:hidden;
-      border: 1px solid rgba(255,255,255,0.03);
-    }
-
-    /* chainsaw teeth decorative */
-    .chainsaw-edges::before, .chainsaw-edges::after{
-      content:"";
-      position:absolute;
-      height:140%;
-      width:60px;
-      top:-20%;
-      background:
-        repeating-linear-gradient(180deg, rgba(255,255,255,0.03) 0 8px, rgba(0,0,0,0.02) 8px 16px);
-      transform: skewX(-12deg);
-      opacity:0.7;
-      filter:brightness(0.9) contrast(1.1);
-      z-index:2;
-      pointer-events:none;
-      mix-blend-mode:overlay;
-    }
-    .chainsaw-edges::before{left:-30px;}
-    .chainsaw-edges::after{right:-30px; transform:skewX(12deg);}
-
-    .avatar {
-      width:260px;
-      height:260px;
-      border-radius:16px;
-      overflow:hidden;
-      position:relative;
-      border: 1px solid rgba(255,255,255,0.06);
-      background: linear-gradient(135deg,#111, #160000);
-      display:flex;
-      align-items:center;
-      justify-content:center;
-    }
-    .avatar img{
-      width:100%;
-      height:100%;
-      object-fit:cover;
-      transform-origin:center;
-      transition: transform .6s cubic-bezier(.22,.9,.3,1);
-      filter: saturate(1.05) contrast(1.02);
-    }
-    .avatar:hover img{ transform: scale(1.06) rotate(-1.8deg); }
-
-    /* chainsaw overlay (animated) */
-    .blade{
-      position:absolute;
-      bottom:-10%;
-      left:50%;
-      transform:translateX(-50%) rotate(-12deg);
-      width:340px;
-      height:110px;
-      background: linear-gradient(90deg, rgba(255,255,255,0.05), rgba(255,0,0,0.06));
-      border-radius:8px;
-      box-shadow: 0 6px 26px rgba(230,57,70,0.12), inset 0 -6px 18px rgba(0,0,0,0.25);
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      pointer-events:none;
-      z-index:3;
-      animation: blade-vibe 1.8s infinite linear;
-      mix-blend-mode:screen;
-    }
-    @keyframes blade-vibe {
-      0%{ transform:translateX(-50%) rotate(-13deg) translateY(0); filter:blur(0px);}
-      50%{ transform:translateX(-50%) rotate(-11deg) translateY(-4px); filter:blur(0.6px) }
-      100%{ transform:translateX(-50%) rotate(-13deg) translateY(0); filter:blur(0px);}
-    }
-
-    .content{
-      padding:6px 6px 6px 2px;
-      display:flex;
-      flex-direction:column;
-      gap:12px;
-      justify-content:center;
-    }
-    h1{
-      margin:0;
-      font-size:28px;
-      letter-spacing: -0.6px;
-      color:var(--accent);
-      text-shadow: 0 6px 24px rgba(230,57,70,0.12);
-      display:flex;
-      align-items:center;
-      gap:12px;
-    }
-    .sub{
-      color:#ddd8;
-      font-size:14px;
-      margin-top:4px;
-    }
-    .message{
-      margin-top:8px;
-      color:#fff9;
-      font-size:18px;
-      line-height:1.6;
-      min-height:72px;
-    }
-
-    /* hearts */
-    .cta {
-      display:flex;
-      align-items:center;
-      gap:18px;
-      margin-top:18px;
-    }
-    .btn{
-      background: linear-gradient(180deg, var(--accent), #b11);
-      border: none;
-      color:white;
-      padding:14px 22px;
-      border-radius:10px;
-      font-weight:700;
-      letter-spacing:0.6px;
-      cursor:pointer;
-      box-shadow: 0 12px 28px rgba(230,57,70,0.14);
-      transition: transform .14s ease, box-shadow .14s ease;
-      font-size:16px;
-    }
-    .btn:active{ transform:scale(.98) }
-    .btn.ghost{
-      background:transparent;
-      border:1px solid rgba(255,255,255,0.06);
-      color:#fff6;
-      font-weight:600;
-    }
-
-    .secret{
-      opacity:0;
-      transform:translateY(8px) scale(.98);
-      transition: all .5s cubic-bezier(.16,.9,.3,1);
-      display:flex;
-      gap:10px;
-      align-items:center;
-    }
-    .secret.show{ opacity:1; transform:translateY(0) scale(1); }
-
-    /* floating hearts decorative */
-    .hearts{
-      position:absolute;
-      inset:0;
-      pointer-events:none;
-      z-index:4;
-      overflow:hidden;
-    }
-    .hearts i{
-      position:absolute;
-      width:18px;height:18px;
-      transform:translateY(0) scale(0.9);
-      opacity:0.9;
-      animation: drift 6s linear infinite;
-      filter: drop-shadow(0 6px 12px rgba(0,0,0,0.5));
-    }
-    .hearts i::before{
-      content:"❤️";
-      display:block;
-      font-size:18px;
-      transform:translateY(0);
-      will-change: transform;
-    }
-    @keyframes drift{
-      0%{ transform:translateY(110vh) translateX(0) rotate(0) scale(.8); opacity:.0}
-      10%{ opacity:1; }
-      100%{ transform:translateY(-20vh) translateX(120px) rotate(360deg) scale(1.1); opacity:0;}
-    }
-
-    /* small footer */
-    .meta{ font-size:12px;color:#aaa;margin-top:14px; opacity:0.9 }
-    .note{ font-size:12px; color:#ddd7; margin-top:6px; }
-
-    /* responsive */
-    @media (max-width:760px){
-      .card{ grid-template-columns:1fr; padding:18px; gap:12px; }
-      .avatar{ width:220px; height:220px; margin:0 auto;}
-      .blade{ width:300px; height:86px; }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Special Question</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f0f8ff;
+            padding-top: 50px;
+        }
+        .container {
+            background-color: white;
+            margin: 0 auto;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            max-width: 600px;
+        }
+        h1 {
+            color: #ff69b4;
+        }
+        button {
+            background-color: #ff69b4;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            opacity: 0.9;
+        }
+        #responseMessage {
+            margin-top: 20px;
+            font-size: 1.2em;
+            color: #333;
+        }
+    </style>
 </head>
 <body>
-  <div class="wrap chainsaw-edges">
-    <div class="card" role="main" aria-label="Romantic chainsaw-man themed proposal">
-      <div style="display:flex;flex-direction:column;gap:12px;align-items:center;justify-content:center;">
-        <div class="avatar" id="avatarWrap" title="Avatar — replace avatar.jpg">
-          <!-- Place your avatar image file named avatar.jpg in same folder -->
-          <img src="avatar.jpg" alt="avatar" id="avatarImg" onerror="this.src='https://picsum.photos/400?random=7';" />
-          <div class="blade" aria-hidden="true">
-            <!-- decorative stylized blade teeth -->
-            <svg width="300" height="60" viewBox="0 0 300 60" fill="none" xmlns="http://www.w3.org/2000/svg" style="opacity:0.85;">
-              <rect x="0" y="6" width="300" height="32" rx="6" fill="rgba(20,20,20,0.5)"/>
-              <g fill="rgba(255,255,255,0.06)">
-                <rect x="12" y="14" width="18" height="10" rx="2"></rect>
-                <rect x="40" y="14" width="18" height="10" rx="2"></rect>
-                <rect x="68" y="14" width="18" height="10" rx="2"></rect>
-                <rect x="96" y="14" width="18" height="10" rx="2"></rect>
-                <rect x="124" y="14" width="18" height="10" rx="2"></rect>
-                <rect x="152" y="14" width="18" height="10" rx="2"></rect>
-                <rect x="180" y="14" width="18" height="10" rx="2"></rect>
-                <rect x="208" y="14" width="18" height="10" rx="2"></rect>
-                <rect x="236" y="14" width="18" height="10" rx="2"></rect>
-                <rect x="264" y="14" width="18" height="10" rx="2"></rect>
-              </g>
-            </svg>
-          </div>
-        </div>
-
-        <div style="font-size:12px;color:#ccc;opacity:0.8">Chainsaw romance vibe • hover the avatar</div>
-      </div>
-
-      <div class="content">
-        <h1>will you do something reckless with me?</h1>
-        <div class="sub">a little chaos, a lot of love — feel free to edit this text</div>
-
-        <div class="message" id="messageArea">Hey — this page is made just for you. Click the heart if you feel the same way.</div>
-
-        <div class="cta">
-          <button class="btn" id="yesBtn">💚 Yeah, absolutely</button>
-          <button class="btn ghost" id="noBtn">😅 Not now</button>
-        </div>
-
-        <div class="secret" id="secretArea" aria-hidden="true">
-          <div style="font-size:20px; font-weight:800; color:var(--neon); text-shadow:0 6px 20px rgba(0,255,0,0.06)" id="finalText"></div>
-        </div>
-
-        <div class="meta">Made with ❤️ and a chainsaw. Customize the message below in the code.</div>
-        <div class="note">Tip: replace <code>avatar.jpg</code> with your chosen avatar, and edit the proposal text inside the script to personalize.</div>
-      </div>
-
-      <div class="hearts" id="hearts"></div>
+    <div class="container">
+        <h1>My Dearest [Name],</h1>
+        <p>From the moment I met you, my world became brighter.</p>
+        <p>Every day spent with you is a treasure, and I can't imagine my future without you by my side.</p>
+        <p>So, with all my heart, I ask you...</p>
+        <h2>Will you marry me?</h2>
+        <button onclick="displayResponse('Yes!')">Yes!</button>
+        <button onclick="displayResponse('I need more time to think.')">Maybe...</button>
+        <div id="responseMessage"></div>
     </div>
-  </div>
 
-  <script>
-    // ---------- CUSTOMIZE THESE ----------
-    const PROPOSAL_TEXT = "I love you more than chaotic chainsaw fights. Will you stay with me forever?"; // main secret message
-    const CONFETTI_WORDS = ["♥","シ","💥","Pochita","denji"];
-    // ------------------------------------
-
-    const yesBtn = document.getElementById('yesBtn');
-    const noBtn = document.getElementById('noBtn');
-    const secret = document.getElementById('secretArea');
-    const finalText = document.getElementById('finalText');
-    const messageArea = document.getElementById('messageArea');
-
-    // floating hearts generation
-    const hearts = document.getElementById('hearts');
-    function spawnHearts(){
-      for(let i=0;i<10;i++){
-        const el = document.createElement('i');
-        el.style.left = Math.random()*100 + "%";
-        el.style.fontSize = (12 + Math.random()*18) + "px";
-        el.style.animationDuration = (6 + Math.random()*6) + "s";
-        el.style.opacity = (0.6 + Math.random()*0.5);
-        hearts.appendChild(el);
-        setTimeout(()=> el.remove(), 12000);
-      }
-    }
-    setInterval(spawnHearts, 1500);
-
-    // playful "no" button dodge
-    let dodgeCount = 0;
-    noBtn.addEventListener('mouseenter', e=>{
-      dodgeCount++;
-      if(dodgeCount < 6){
-        // move the noBtn to random place near cta
-        const r = 180;
-        const ang = Math.random()*Math.PI*2;
-        noBtn.style.transform = `translate(${Math.cos(ang)*r*0.006}rem, ${Math.sin(ang)*r*0.006}rem) rotate(${(Math.random()-0.5)*24}deg)`;
-      } else {
-        // after many hovers it surrenders ;)
-        noBtn.style.transform = 'translate(0,0)';
-        noBtn.disabled = true;
-        noBtn.textContent = "😶 fine...";
-      }
-    });
-
-    yesBtn.addEventListener('click', async () => {
-      messageArea.textContent = "You clicked yes — a bad decision we both will love.";
-      // tiny typing reveal for the secret message
-      finalText.textContent = "";
-      secret.classList.add('show');
-      const text = PROPOSAL_TEXT;
-      for(let i=0;i<text.length;i++){
-        finalText.textContent += text.charAt(i);
-        await new Promise(r=>setTimeout(r, 28 + Math.random()*30));
-      }
-      // playful confetti/hearts burst
-      burstSmall();
-    });
-
-    function burstSmall(){
-      const burstCount = 22;
-      for(let i=0;i<burstCount;i++){
-        const n = document.createElement('div');
-        n.style.position = 'fixed';
-        n.style.left = (50 + (Math.random()-0.5)*28) + "%";
-        n.style.top = (60 + (Math.random()-0.5)*28) + "%";
-        n.style.pointerEvents = 'none';
-        n.textContent = CONFETTI_WORDS[Math.floor(Math.random()*CONFETTI_WORDS.length)];
-        n.style.transform = 'translate(-50%,-50%)';
-        n.style.fontSize = (12 + Math.random()*26) + 'px';
-        n.style.opacity = '1';
-        n.style.transition = 'transform 1200ms cubic-bezier(.14,.9,.26,1), opacity 1200ms linear';
-        document.body.appendChild(n);
-        requestAnimationFrame(()=> {
-          n.style.transform = `translate(-50%,-50%) translate(${(Math.random()-0.5)*120}px, ${-(120 + Math.random()*220)}px) rotate(${Math.random()*720}deg) scale(${0.6 + Math.random()*1.4})`;
-          n.style.opacity = '0';
-        });
-        setTimeout(()=> n.remove(), 1400);
-      }
-    }
-
-    // small keyboard shortcut: press 'd' to toggle chainsaw wave (for fun)
-    let vibe = true;
-    document.addEventListener('keydown', (e)=>{
-      if(e.key.toLowerCase() === 'd'){
-        vibe = !vibe;
-        document.querySelector('.blade').style.animationPlayState = vibe ? 'running' : 'paused';
-      }
-    });
-
-    // small accessibility: if avatar not present, offer default
-    document.getElementById('avatarImg').addEventListener('error', ()=>{
-      document.getElementById('avatarImg').src = 'https://picsum.photos/400?random=13';
-    });
-
-    // Auto-spawn some hearts at start
-    spawnHearts();
-  </script>
+    <script>
+        function displayResponse(answer) {
+            const messageDiv = document.getElementById('responseMessage');
+            if (answer === 'Yes!') {
+                messageDiv.innerHTML = 'Oh my goodness! I am so incredibly happy! Thank you!';
+                messageDiv.style.color = 'green';
+            } else {
+                messageDiv.innerHTML = 'I understand. Please take all the time you need. My feelings remain.';
+                messageDiv.style.color = 'orange';
+            }
+        }
+    </script>
 </body>
 </html>
