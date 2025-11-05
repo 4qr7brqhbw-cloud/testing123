@@ -3,36 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Our Love Story</title>
+    <title>Chainsaw Love Proposal</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
         body {
-            font-family: 'Arial', sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            color: white;
+            overflow-x: hidden;
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            overflow: hidden;
         }
 
-        .game-container {
+        .container {
             width: 100%;
-            max-width: 800px;
-            height: 600px;
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 20px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-            overflow: hidden;
+            max-width: 900px;
+            margin: 20px auto;
             position: relative;
         }
 
         .screen {
+            width: 100%;
+            height: 600px;
+            background: rgba(22, 33, 62, 0.9);
+            border-radius: 15px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
+            border: 3px solid #e94560;
+        }
+
+        #gameCanvas {
+            display: block;
+            background: #16213e;
+        }
+
+        .content {
             position: absolute;
             top: 0;
             left: 0;
@@ -42,73 +55,87 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            padding: 40px;
             text-align: center;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.5s ease;
+            padding: 40px;
+            z-index: 10;
         }
 
-        .screen.active {
-            opacity: 1;
-            pointer-events: all;
-        }
-
-        h1 {
-            color: #333;
-            font-size: 3em;
+        .title {
+            font-size: 4rem;
+            color: #e94560;
             margin-bottom: 20px;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+            text-shadow: 3px 3px 0 #000;
+            letter-spacing: 2px;
+            font-weight: 800;
         }
 
-        h2 {
-            color: #666;
-            font-size: 2em;
+        .subtitle {
+            font-size: 1.8rem;
             margin-bottom: 30px;
-        }
-
-        p {
-            color: #555;
-            font-size: 1.2em;
-            line-height: 1.6;
-            margin-bottom: 20px;
-        }
-
-        .memory-box {
-            background: rgba(102, 126, 234, 0.1);
-            padding: 20px;
-            border-radius: 10px;
-            margin: 10px 0;
-            border-left: 4px solid #667eea;
+            color: #fff;
+            text-shadow: 2px 2px 0 #000;
         }
 
         .btn {
-            background: linear-gradient(135deg, #667eea, #764ba2);
+            background: #e94560;
             color: white;
             border: none;
             padding: 15px 40px;
-            font-size: 1.2em;
-            border-radius: 50px;
+            font-size: 1.5rem;
+            margin: 15px;
             cursor: pointer;
-            margin: 10px;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            border-radius: 50px;
+            border: 3px solid #000;
+            text-shadow: 2px 2px 0 #000;
+            transition: all 0.3s ease;
+            font-weight: bold;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
         }
 
         .btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+            background: #ff6b81;
+            transform: scale(1.1);
         }
 
         .btn-yes {
-            background: linear-gradient(135deg, #4CAF50, #45a049);
-            font-size: 1.5em;
+            background: #4CAF50;
+            font-size: 2rem;
             padding: 20px 60px;
         }
 
+        .btn-yes:hover {
+            background: #66bb6a;
+        }
+
         .btn-no {
-            background: linear-gradient(135deg, #ff6b6b, #ee5a52);
+            background: #e94560;
             position: relative;
+        }
+
+        .proposal-text {
+            font-size: 1.5rem;
+            line-height: 1.6;
+            margin: 20px 0;
+            color: #fff;
+            max-width: 80%;
+            text-shadow: 1px 1px 2px #000;
+        }
+
+        .character {
+            position: absolute;
+            width: 80px;
+            height: 80px;
+            background-size: contain;
+            background-repeat: no-repeat;
+            z-index: 5;
+        }
+
+        .denji {
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect x="20" y="20" width="60" height="60" fill="%23e94560" stroke="black" stroke-width="3"/><rect x="30" y="30" width="10" height="10" fill="black"/><rect x="60" y="30" width="10" height="10" fill="black"/><rect x="35" y="50" width="30" height="10" fill="black"/><rect x="15" y="40" width="10" height="20" fill="%23e94560" stroke="black" stroke-width="2"/><rect x="75" y="40" width="10" height="20" fill="%23e94560" stroke="black" stroke-width="2"/></svg>');
+        }
+
+        .makima {
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="40" r="25" fill="%23ffcccb" stroke="black" stroke-width="3"/><circle cx="40" cy="35" r="5" fill="black"/><circle cx="60" cy="35" r="5" fill="black"/><path d="M 40 50 Q 50 60 60 50" stroke="black" stroke-width="3" fill="none"/><rect x="30" y="70" width="40" height="20" fill="%23c41e3a" stroke="black" stroke-width="3"/></svg>');
         }
 
         .hearts {
@@ -116,33 +143,19 @@
             width: 100%;
             height: 100%;
             pointer-events: none;
+            z-index: 1;
         }
 
         .heart {
             position: absolute;
-            font-size: 20px;
-            color: #ff6b6b;
-            animation: float 3s ease-in infinite;
-        }
-
-        .photo-frame {
-            width: 300px;
-            height: 200px;
-            border: 10px solid #fff;
-            border-radius: 10px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-            margin: 20px 0;
-            background: #eee;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-style: italic;
-            color: #666;
+            color: #e94560;
+            font-size: 24px;
+            animation: float 5s ease-in-out infinite;
         }
 
         @keyframes float {
-            0%, 100% { transform: translateY(0) rotate(0deg); }
-            50% { transform: translateY(-20px) rotate(10deg); }
+            0%, 100% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            50% { transform: translateY(-40px) rotate(10deg); opacity: 0.7; }
         }
 
         @keyframes confetti {
@@ -154,134 +167,510 @@
             position: absolute;
             width: 10px;
             height: 10px;
-            background: #ff6b6b;
+            background: #e94560;
             animation: confetti 3s ease-in-out;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .game-ui {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            z-index: 20;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 10px;
+            border-radius: 10px;
+            border: 2px solid #e94560;
+        }
+
+        .health-bar {
+            width: 200px;
+            height: 20px;
+            background: #333;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 10px;
+            border: 2px solid #000;
+        }
+
+        .health-fill {
+            height: 100%;
+            background: #e94560;
+            width: 100%;
+            transition: width 0.3s;
+        }
+
+        .timer {
+            color: white;
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        .instructions {
+            position: absolute;
+            bottom: 20px;
+            left: 0;
+            width: 100%;
+            text-align: center;
+            color: #aaa;
+            font-size: 1rem;
+        }
+
+        /* Animation video styles */
+        .animation-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 15;
+        }
+
+        .scene {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 1s;
+        }
+
+        .scene.active {
+            opacity: 1;
+        }
+
+        .dialogue {
+            background: rgba(0, 0, 0, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 5px solid #e94560;
+            max-width: 80%;
+            font-size: 1.4rem;
+            margin-top: 300px;
+        }
+
+        .character-image {
+            width: 200px;
+            height: 200px;
+            margin: 0 30px;
         }
     </style>
 </head>
 <body>
-    <div class="game-container">
-        <!-- Title Screen -->
-        <div class="screen active" id="title-screen">
-            <h1>Our Journey</h1>
-            <h2>[Your Name] & [Her Name]</h2>
-            <p>A story of love and adventure</p>
-            <button class="btn" onclick="showScreen('level1')">Start Our Story</button>
-        </div>
-
-        <!-- Level 1: First Meeting -->
-        <div class="screen" id="level1">
-            <h1>The Beginning</h1>
-            <div class="memory-box">
-                <p>"Every great love story has its first chapter..."</p>
-            </div>
-            <p>This is where our adventure began. The moment our paths crossed and everything changed.</p>
-            <div class="photo-frame">
-                [Photo of Your First Meeting]
-            </div>
-            <button class="btn" onclick="showScreen('level2')">Continue Journey</button>
-        </div>
-
-        <!-- Level 2: Growing Together -->
-        <div class="screen" id="level2">
-            <h1>Growing Together</h1>
-            <div class="memory-box">
-                <p>"Through all the moments, big and small..."</p>
-            </div>
-            <p>Every laugh, every conversation, every shared dream built the foundation of what we have today.</p>
-            <div class="photo-frame">
-                [Photo of Happy Memory]
-            </div>
-            <button class="btn" onclick="showScreen('level3')">Continue Journey</button>
-        </div>
-
-        <!-- Level 3: The Adventure -->
-        <div class="screen" id="level3">
-            <h1>Our Adventure</h1>
-            <div class="memory-box">
-                <p>"The world is brighter when we explore it together..."</p>
-            </div>
-            <p>From quiet moments to grand adventures, every experience is better with you by my side.</p>
-            <div class="photo-frame">
-                [Photo of You Two Together]
-            </div>
-            <button class="btn" onclick="showScreen('proposal')">See What's Next</button>
-        </div>
-
-        <!-- Proposal Screen -->
-        <div class="screen" id="proposal">
-            <h1>The Most Important Question</h1>
-            <div class="photo-frame">
-                [Your Favorite Photo Together]
-            </div>
-            <p>[Her Name], you make every day an adventure worth living.</p>
-            <p>My love for you grows with every moment we share.</p>
-            <p>Will you make me the happiest person in the world?</p>
-            <p>Will you marry me?</p>
+    <div class="container">
+        <div class="screen">
+            <canvas id="gameCanvas" width="900" height="600"></canvas>
             
-            <div style="margin-top: 30px;">
-                <button class="btn btn-yes" onclick="acceptProposal()">YES!</button>
-                <button class="btn btn-no" onmouseover="dodgeButton(this)">No</button>
+            <!-- Animation Video -->
+            <div id="animationContainer" class="animation-container">
+                <div id="scene1" class="scene active">
+                    <div class="dialogue">
+                        "Every story needs a hero... and a reason to fight."
+                    </div>
+                </div>
+                <div id="scene2" class="scene">
+                    <div class="dialogue">
+                        "I never thought I'd find someone who makes my engine rev like you do."
+                    </div>
+                </div>
+                <div id="scene3" class="scene">
+                    <div class="dialogue">
+                        "You're the Makima to my Denji... the one who gives my life meaning."
+                    </div>
+                </div>
+                <div id="scene4" class="scene">
+                    <div class="dialogue">
+                        "So now I have to ask... the most important question of my life..."
+                    </div>
+                </div>
             </div>
-        </div>
+            
+            <!-- Start Screen -->
+            <div id="startScreen" class="content">
+                <h1 class="title">CHAINSAW LOVE</h1>
+                <p class="subtitle">A Denji's Proposal Adventure</p>
+                <button class="btn" onclick="startAnimation()">WATCH OUR STORY</button>
+                <div class="hearts" id="startHearts"></div>
+            </div>
 
-        <!-- Final Screen -->
-        <div class="screen" id="final">
-            <h1>She Said YES!</h1>
-            <h2>[Your Name] & [Her Name]</h2>
-            <p>Our greatest adventure begins now...</p>
-            <div class="hearts" id="hearts-container"></div>
+            <!-- Game Screen -->
+            <div id="gameScreen" class="content hidden">
+                <div class="game-ui">
+                    <div class="health-bar">
+                        <div class="health-fill" id="healthBar"></div>
+                    </div>
+                    <div class="timer" id="timer">TIME: 30s</div>
+                </div>
+                <h2 class="subtitle">Catch the YES! Avoid the NO!</h2>
+                <p class="instructions">Use ARROW KEYS to move Denji | SPACE to use chainsaw boost</p>
+            </div>
+
+            <!-- Proposal Screen -->
+            <div id="proposalScreen" class="content hidden">
+                <h1 class="title">WILL YOU MARRY ME?</h1>
+                <p class="proposal-text">
+                    My heart revs for you like Chainsaw Man's engine!<br>
+                    Will you be my Makima forever?
+                </p>
+                <div>
+                    <button class="btn btn-yes" onclick="acceptProposal()">YES!</button>
+                    <button class="btn btn-no" id="noBtn" onmouseover="dodgeButton()">NO</button>
+                </div>
+                <div class="hearts" id="proposalHearts"></div>
+            </div>
+
+            <!-- Win Screen -->
+            <div id="winScreen" class="content hidden">
+                <h1 class="title">SHE SAID YES!</h1>
+                <p class="subtitle">The Adventure Continues...</p>
+                <p class="proposal-text">
+                    You've captured my heart forever!<br>
+                    Let's write our own Chainsaw Love story together!
+                </p>
+                <button class="btn" onclick="restartGame()">PLAY AGAIN</button>
+                <div class="hearts" id="winHearts"></div>
+            </div>
         </div>
     </div>
 
     <script>
-        // Screen navigation
-        function showScreen(screenId) {
-            // Hide all screens
-            document.querySelectorAll('.screen').forEach(screen => {
-                screen.classList.remove('active');
-            });
-            // Show target screen
-            document.getElementById(screenId).classList.add('active');
+        // Game variables
+        let canvas, ctx;
+        let denji = { x: 100, y: 300, width: 60, height: 80, speed: 5 };
+        let yesButton = { x: 700, y: 250, width: 100, height: 60 };
+        let noButton = { x: 300, y: 400, width: 100, height: 60 };
+        let obstacles = [];
+        let health = 100;
+        let timeLeft = 30;
+        let gameRunning = false;
+        let animationPhase = 0;
+
+        // Initialize the game
+        window.onload = function() {
+            canvas = document.getElementById('gameCanvas');
+            ctx = canvas.getContext('2d');
+            createHearts('startHearts', 30);
+        };
+
+        // Start the animation sequence
+        function startAnimation() {
+            document.getElementById('startScreen').classList.add('hidden');
+            document.getElementById('animationContainer').classList.remove('hidden');
+            
+            // Play through animation scenes
+            const scenes = document.querySelectorAll('.scene');
+            let currentScene = 0;
+            
+            const sceneInterval = setInterval(() => {
+                scenes[currentScene].classList.remove('active');
+                currentScene++;
+                
+                if (currentScene < scenes.length) {
+                    scenes[currentScene].classList.add('active');
+                } else {
+                    clearInterval(sceneInterval);
+                    startGame();
+                }
+            }, 3000);
         }
 
-        // Dodge button fun
-        function dodgeButton(button) {
-            const container = document.querySelector('.game-container');
+        // Start the game
+        function startGame() {
+            document.getElementById('animationContainer').classList.add('hidden');
+            document.getElementById('gameScreen').classList.remove('hidden');
+            
+            gameRunning = true;
+            health = 100;
+            timeLeft = 30;
+            
+            // Initialize game elements
+            denji.x = 100;
+            denji.y = 300;
+            
+            // Create obstacles
+            obstacles = [];
+            for (let i = 0; i < 5; i++) {
+                obstacles.push({
+                    x: Math.random() * 800,
+                    y: Math.random() * 550,
+                    width: 40,
+                    height: 40,
+                    speedX: (Math.random() - 0.5) * 4,
+                    speedY: (Math.random() - 0.5) * 4
+                });
+            }
+            
+            // Start game loop
+            gameLoop();
+            
+            // Start timer
+            const timer = setInterval(() => {
+                if (gameRunning) {
+                    timeLeft--;
+                    document.getElementById('timer').textContent = `TIME: ${timeLeft}s`;
+                    
+                    if (timeLeft <= 0) {
+                        clearInterval(timer);
+                        endGame(false);
+                    }
+                } else {
+                    clearInterval(timer);
+                }
+            }, 1000);
+        }
+
+        // Main game loop
+        function gameLoop() {
+            if (!gameRunning) return;
+            
+            // Clear canvas
+            ctx.fillStyle = '#16213e';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            // Draw background elements
+            drawBackground();
+            
+            // Update and draw obstacles
+            updateObstacles();
+            
+            // Draw buttons
+            drawButton(yesButton, '#4CAF50', 'YES!');
+            drawButton(noButton, '#e94560', 'NO');
+            
+            // Draw Denji
+            drawDenji();
+            
+            // Check collisions
+            checkCollisions();
+            
+            // Continue game loop
+            requestAnimationFrame(gameLoop);
+        }
+
+        // Draw background elements
+        function drawBackground() {
+            // Draw some cityscape silhouette
+            ctx.fillStyle = '#0f3460';
+            ctx.fillRect(0, 400, canvas.width, 200);
+            
+            // Draw some buildings
+            ctx.fillStyle = '#1a1a2e';
+            for (let i = 0; i < 10; i++) {
+                const height = 100 + Math.random() * 200;
+                ctx.fillRect(i * 90, 400 - height, 60, height);
+            }
+            
+            // Draw moon
+            ctx.fillStyle = '#f5f5f5';
+            ctx.beginPath();
+            ctx.arc(750, 100, 40, 0, Math.PI * 2);
+            ctx.fill();
+        }
+
+        // Draw Denji character
+        function drawDenji() {
+            // Body
+            ctx.fillStyle = '#e94560';
+            ctx.fillRect(denji.x, denji.y, denji.width, denji.height);
+            
+            // Head
+            ctx.fillStyle = '#ffcccb';
+            ctx.fillRect(denji.x + 10, denji.y - 20, 40, 30);
+            
+            // Chainsaw arms
+            ctx.fillStyle = '#333';
+            ctx.fillRect(denji.x - 15, denji.y + 10, 15, 20);
+            ctx.fillRect(denji.x + denji.width, denji.y + 10, 15, 20);
+            
+            // Eyes
+            ctx.fillStyle = '#000';
+            ctx.fillRect(denji.x + 15, denji.y - 10, 8, 8);
+            ctx.fillRect(denji.x + 35, denji.y - 10, 8, 8);
+            
+            // Mouth
+            ctx.fillStyle = '#000';
+            ctx.fillRect(denji.x + 20, denji.y + 5, 20, 5);
+            
+            // Chainsaw teeth
+            ctx.fillStyle = '#ccc';
+            for (let i = 0; i < 5; i++) {
+                ctx.fillRect(denji.x - 15, denji.y + 10 + i*4, 10, 2);
+                ctx.fillRect(denji.x + denji.width + 5, denji.y + 10 + i*4, 10, 2);
+            }
+        }
+
+        // Draw a button
+        function drawButton(button, color, text) {
+            // Button body
+            ctx.fillStyle = color;
+            ctx.fillRect(button.x, button.y, button.width, button.height);
+            
+            // Button border
+            ctx.strokeStyle = '#000';
+            ctx.lineWidth = 3;
+            ctx.strokeRect(button.x, button.y, button.width, button.height);
+            
+            // Button text
+            ctx.fillStyle = '#fff';
+            ctx.font = 'bold 20px Arial';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText(text, button.x + button.width/2, button.y + button.height/2);
+        }
+
+        // Update obstacle positions
+        function updateObstacles() {
+            ctx.fillStyle = '#333';
+            
+            for (let i = 0; i < obstacles.length; i++) {
+                const obs = obstacles[i];
+                
+                // Update position
+                obs.x += obs.speedX;
+                obs.y += obs.speedY;
+                
+                // Bounce off walls
+                if (obs.x <= 0 || obs.x + obs.width >= canvas.width) {
+                    obs.speedX *= -1;
+                }
+                if (obs.y <= 0 || obs.y + obs.height >= 400) {
+                    obs.speedY *= -1;
+                }
+                
+                // Draw obstacle
+                ctx.fillRect(obs.x, obs.y, obs.width, obs.height);
+                
+                // Draw some details
+                ctx.fillStyle = '#e94560';
+                ctx.fillRect(obs.x + 5, obs.y + 5, obs.width - 10, obs.height - 10);
+                ctx.fillStyle = '#333';
+            }
+        }
+
+        // Check for collisions
+        function checkCollisions() {
+            // Check collision with YES button
+            if (isColliding(denji, yesButton)) {
+                endGame(true);
+                return;
+            }
+            
+            // Check collision with NO button
+            if (isColliding(denji, noButton)) {
+                health -= 20;
+                document.getElementById('healthBar').style.width = health + '%';
+                
+                // Move NO button to random position
+                noButton.x = Math.random() * (canvas.width - noButton.width);
+                noButton.y = Math.random() * (400 - noButton.height);
+                
+                if (health <= 0) {
+                    endGame(false);
+                }
+            }
+            
+            // Check collision with obstacles
+            for (let i = 0; i < obstacles.length; i++) {
+                if (isColliding(denji, obstacles[i])) {
+                    health -= 5;
+                    document.getElementById('healthBar').style.width = health + '%';
+                    
+                    // Push Denji away from obstacle
+                    if (denji.x < obstacles[i].x) {
+                        denji.x -= 10;
+                    } else {
+                        denji.x += 10;
+                    }
+                    
+                    if (denji.y < obstacles[i].y) {
+                        denji.y -= 10;
+                    } else {
+                        denji.y += 10;
+                    }
+                    
+                    if (health <= 0) {
+                        endGame(false);
+                    }
+                    break;
+                }
+            }
+        }
+
+        // Check if two rectangles are colliding
+        function isColliding(rect1, rect2) {
+            return rect1.x < rect2.x + rect2.width &&
+                   rect1.x + rect1.width > rect2.x &&
+                   rect1.y < rect2.y + rect2.height &&
+                   rect1.y + rect1.height > rect2.y;
+        }
+
+        // End the game
+        function endGame(success) {
+            gameRunning = false;
+            
+            if (success) {
+                document.getElementById('gameScreen').classList.add('hidden');
+                document.getElementById('proposalScreen').classList.remove('hidden');
+                createHearts('proposalHearts', 50);
+            } else {
+                alert("Game Over! Denji couldn't reach the YES button in time.");
+                restartGame();
+            }
+        }
+
+        // Accept proposal
+        function acceptProposal() {
+            document.getElementById('proposalScreen').classList.add('hidden');
+            document.getElementById('winScreen').classList.remove('hidden');
+            createHearts('winHearts', 100);
+            createConfetti(200);
+        }
+
+        // Restart the game
+        function restartGame() {
+            document.getElementById('winScreen').classList.add('hidden');
+            document.getElementById('startScreen').classList.remove('hidden');
+        }
+
+        // Make the NO button dodge
+        function dodgeButton() {
+            const noBtn = document.getElementById('noBtn');
+            const container = document.querySelector('.screen');
             const containerRect = container.getBoundingClientRect();
             
             const randomX = Math.random() * (containerRect.width - 100);
-            const randomY = Math.random() * (containerRect.height - 50);
+            const randomY = Math.random() * (containerRect.height - 100);
             
-            button.style.position = 'absolute';
-            button.style.left = randomX + 'px';
-            button.style.top = randomY + 'px';
-        }
-
-        // Proposal acceptance
-        function acceptProposal() {
-            showScreen('final');
-            createHearts();
-            createConfetti();
+            noBtn.style.position = 'absolute';
+            noBtn.style.left = randomX + 'px';
+            noBtn.style.top = randomY + 'px';
         }
 
         // Create floating hearts
-        function createHearts() {
-            const container = document.getElementById('hearts-container');
-            for (let i = 0; i < 50; i++) {
+        function createHearts(containerId, count) {
+            const container = document.getElementById(containerId);
+            container.innerHTML = '';
+            
+            for (let i = 0; i < count; i++) {
                 const heart = document.createElement('div');
                 heart.className = 'heart';
                 heart.innerHTML = '❤';
                 heart.style.left = Math.random() * 100 + '%';
-                heart.style.animationDelay = Math.random() * 2 + 's';
+                heart.style.animationDelay = Math.random() * 5 + 's';
                 container.appendChild(heart);
             }
         }
 
         // Create confetti
-        function createConfetti() {
-            const colors = ['#ff6b6b', '#4ecdc4', '#45b7d1', '#96ceb4', '#feca57', '#ff9ff3'];
-            for (let i = 0; i < 150; i++) {
+        function createConfetti(count) {
+            const colors = ['#e94560', '#4ecdc4', '#45b7d1', '#96ceb4', '#feca57', '#ff9ff3'];
+            
+            for (let i = 0; i < count; i++) {
                 const confetti = document.createElement('div');
                 confetti.className = 'confetti';
                 confetti.style.left = Math.random() * 100 + '%';
@@ -296,10 +685,32 @@
             }
         }
 
-        // Add some initial hearts to title screen
-        window.onload = function() {
-            createHearts();
-        }
+        // Handle keyboard controls
+        document.addEventListener('keydown', function(e) {
+            if (!gameRunning) return;
+            
+            switch(e.key) {
+                case 'ArrowUp':
+                    denji.y = Math.max(0, denji.y - denji.speed);
+                    break;
+                case 'ArrowDown':
+                    denji.y = Math.min(canvas.height - denji.height, denji.y + denji.speed);
+                    break;
+                case 'ArrowLeft':
+                    denji.x = Math.max(0, denji.x - denji.speed);
+                    break;
+                case 'ArrowRight':
+                    denji.x = Math.min(canvas.width - denji.width, denji.x + denji.speed);
+                    break;
+                case ' ':
+                    // Chainsaw boost
+                    denji.speed = 10;
+                    setTimeout(() => {
+                        denji.speed = 5;
+                    }, 500);
+                    break;
+            }
+        });
     </script>
 </body>
 </html>
